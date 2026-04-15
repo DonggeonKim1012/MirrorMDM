@@ -138,3 +138,15 @@ slurm**/
 *.err
 *.slurm
 .vscode/
+
+# large dataset directories (do not push)
+dataset/
+kit/
+
+# downloaded archives
+*.rar
+*.zip
+*:Zone.Identifier
+
+# claude code session files
+.claude/
