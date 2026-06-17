@@ -171,14 +171,14 @@ class ContrastiveText2MotionDataset(Text2MotionDatasetV2):
         length = (original_length, m_length) if self.opt.fixed_len > 0 else m_length
 
         # ----------------------------------------------------------
-        # Flip 모션 로드 (full-entry만, sub-clip 제외)
-        # ----------------------------------------------------------
-        flipped_motion = self._load_flipped(key, crop_start, m_length)
-
-        # ----------------------------------------------------------
         # Text swap (left↔right body-part 교환)
         # ----------------------------------------------------------
         swapped_caption = _swap_lr_text(caption)
+
+        # ----------------------------------------------------------
+        # Flip 모션 로드 (LR 캡션이 선택됐을 때만)
+        # ----------------------------------------------------------
+        flipped_motion = self._load_flipped(key, crop_start, m_length) if swapped_caption is not None else None
 
         return (word_embeddings, pos_one_hots, caption, sent_len,
                 motion, length, '_'.join(tokens), flipped_motion, swapped_caption)
